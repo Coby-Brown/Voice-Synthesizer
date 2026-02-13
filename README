@@ -53,7 +53,7 @@ python main.py "[Default] Hello World!" output.wav
 
 
 # Notes:
-This program was designed for use with an NVIDIA 1080ti GPU. I have not tested with other hardware.
+This program was designed for use with a linux Machine using an NVIDIA 1080ti GPU. I have not tested with other hardware.
 
 
 # Credits:
