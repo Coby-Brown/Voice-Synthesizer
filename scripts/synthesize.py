@@ -9,9 +9,9 @@ def synthesize():
     import yaml
 
 
-    # Usage: python synthesize.py <text|text_file> <output_file> [config_file]
+    # Usage: python main.py <text|text_file> <output_file> [config_file]
     if len(sys.argv) < 3:
-        print("Usage: python synthesize.py <text|text_file> <output_file> [config_file]")
+        print("Usage: python main.py <text|text_file> <output_file> [config_file]")
         sys.exit(1)
 
     text_arg = sys.argv[1]
@@ -30,7 +30,7 @@ def synthesize():
         config = {}
 
 
-    reference_folder = config.get('reference_folder', 'Coby')
+    reference_folder = config.get('reference_folder', 'voices/Default')
     randomness = config.get('randomness', 0.5)
     sample_cache = config.get('sample_cache', 'voice_samples_cache.pt')
     diffusion_temperature = config.get('diffusion_temperature', 1.0)

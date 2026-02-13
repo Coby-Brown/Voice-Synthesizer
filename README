@@ -1,24 +1,53 @@
-# Usage instructions for main.py with config file
+#Setup Instructions
+Begin by setting up python virtual envirnoment by running the setup script in the terminal:
+bash setup.sh
+
+
+# Quickstart Instructions
+1. Start Virtual Environment:
 source venv311/bin/activate
 
-## Command
+2. Run the main script with the desired text and output file:
+python main.py <text|text_file> <output_file> [config_file]
+
+3. Output file will be generated as the specified filename (e.g., output.wav)
+
+
+# Training Instructions
+To train the model with your own voice samples, follow these steps:
+
+1. Prepare your voice samples:
+Convert samples to a .wav format if they are not already
+
+2. Place Samples in Training folder
+
+3. Run the command:
+python main.py "Hello World!" output.wav training.yaml
+
+4. The model will generate a new voice cache file. Re-run the command to check if the training is to your liking.
+
+5. If satisfied, move the file to your desired voice folder.
+
+6. Create a new .yaml file for that voice.
+
+
+# Command
 python main.py <text|text_file> <output_file> [config_file]
 
 - <text|text_file>: Text to synthesize or a file containing text
 - <output_file>: Path to save synthesized audio
 - [config_file]: Optional YAML config file (default: config.yaml)
 
-## Config file options (YAML)
-- randomness: Controls voice randomness(Tempurature) (float, e.g., 0.5)
-- sample_cache: Name of cache file for voice samples (string)
-- reference_folder: Folder containing reference .wav files (string)
 
-Example config.yaml:
+# Example config.yaml:
+preset: fast # preset: Synthesis preset (ultra_fast, fast, standard, high_quality)
+randomness: 0.5 # randomness: Controls voice randomness(Tempurature) (float, e.g., 0.5) - Lower values will produce more consistent results, higher values will produce more varied results
+sample_cache: "basic.pt" # sample_cache: Name of cache file for voice samples (string)
+reference_folder: "voices/Default" # reference_folder: Folder containing reference .wav files or reference cache file (string)
 
-randomness: 0.5
-sample_cache: "voice_samples_cache.pt"
-reference_folder: "voices/Default"
 
-## Example command
+## Example commands
 python main.py "Hello World!" output.wav Default.yaml
+python main.py "Hello World!" output.wav
+python main.py "[Default] Hello World!" output.wav
 
