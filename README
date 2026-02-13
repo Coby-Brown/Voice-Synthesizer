@@ -1,5 +1,5 @@
 # Usage instructions for main.py with config file
-source venv310/bin/activate
+source venv311/bin/activate
 
 ## Command
 python main.py <text|text_file> <output_file> [config_file]
