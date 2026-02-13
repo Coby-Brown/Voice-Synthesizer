@@ -1,5 +1,5 @@
 #Setup Instructions
-Begin by setting up python virtual envirnoment by running the setup script in the terminal:
+Begin by setting up python virtual envirnoment by running the setup script in the VSCode (Or other IDE) terminal (THIS PROGRAM IS NOT MEANT FOR USE OUTSIDE OF AN IDE):
 bash setup.sh
 
 
