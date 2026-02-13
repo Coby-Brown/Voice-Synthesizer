@@ -1,4 +1,4 @@
-#Setup Instructions
+# Setup Instructions
 Begin by setting up python virtual envirnoment by running the setup script in the VSCode (Or other IDE) terminal (THIS PROGRAM IS NOT MEANT FOR USE OUTSIDE OF AN IDE):
 bash setup.sh
 
@@ -46,8 +46,26 @@ sample_cache: "basic.pt" # sample_cache: Name of cache file for voice samples (s
 reference_folder: "voices/Default" # reference_folder: Folder containing reference .wav files or reference cache file (string)
 
 
-## Example commands
+# Example commands
 python main.py "Hello World!" output.wav Default.yaml
 python main.py "Hello World!" output.wav
 python main.py "[Default] Hello World!" output.wav
 
+
+# Notes:
+This program was designed for use with an NVIDIA 1080ti GPU. I have not tested with other hardware.
+
+
+# Credits:
+This project was made possible thanks to the following:
+
+- [PyTorch](https://pytorch.org/): Deep learning framework used for model training and inference.
+- [NumPy](https://numpy.org/): Fundamental package for scientific computing with Python.
+- [SoundFile](https://pysoundfile.readthedocs.io/): Library for reading and writing sound files.
+- [TQDM](https://tqdm.github.io/): Progress bar for Python loops.
+- [Hugging Face Transformers](https://huggingface.co/transformers/): Used for model and tokenizer utilities.
+- [Unidecode](https://pypi.org/project/Unidecode/): ASCII transliterations of Unicode text.
+- [GitHub Copilot](https://copilot.github.com/): AI pair programmer that assisted in code generation and debugging.
+- [Contributors](https://github.com/): Coby-Brown.
+
+Special thanks to the open-source community for their invaluable resources and support.
