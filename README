@@ -1,5 +1,6 @@
 # Setup Instructions
 Begin by setting up python virtual envirnoment by running the setup script in the VSCode (Or other IDE) terminal (THIS PROGRAM IS NOT MEANT FOR USE OUTSIDE OF AN IDE):
+## NOTE: This will take about 10 GB
 bash setup.sh
 
 
