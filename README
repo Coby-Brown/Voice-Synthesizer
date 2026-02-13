@@ -1,0 +1,24 @@
+# Usage instructions for main.py with config file
+source venv310/bin/activate
+
+## Command
+python main.py <text|text_file> <output_file> [config_file]
+
+- <text|text_file>: Text to synthesize or a file containing text
+- <output_file>: Path to save synthesized audio
+- [config_file]: Optional YAML config file (default: config.yaml)
+
+## Config file options (YAML)
+- randomness: Controls voice randomness(Tempurature) (float, e.g., 0.5)
+- sample_cache: Name of cache file for voice samples (string)
+- reference_folder: Folder containing reference .wav files (string)
+
+Example config.yaml:
+
+randomness: 0.5
+sample_cache: "voice_samples_cache.pt"
+reference_folder: "voices/Default"
+
+## Example command
+python main.py "Hello World!" output.wav Default.yaml
+

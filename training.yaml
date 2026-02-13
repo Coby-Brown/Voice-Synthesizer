@@ -1,0 +1,16 @@
+# Example config file for synthesize.py
+# Edit parameters as needed
+
+
+preset: standard # Options: ultra_fast, fast, standard, high_quality
+randomness: 0.5 # Lower values will produce more consistent results, higher values will produce more varied results
+length_penalty: 1.0 # Higher values will produce shorter outputs, lower values will produce longer outputs
+sample_cache: "New_Voice.pt"
+reference_folder: "Training"
+
+# Additional synthesis parameters
+repetition_penalty: 2.0
+top_p: 0.8
+diffusion_temperature: 1.0
+cond_free_k: 2.0
+
