@@ -14,7 +14,10 @@ def synthesize():
         print("Usage: python main.py <text|text_file> <output_file> [config_file]")
         sys.exit(1)
 
-    text_arg = sys.argv[1]
+    if sys.argv[1] == "message.txt":
+        text_arg = "message.txt"
+    else:
+        text_arg = sys.argv[1]
     output_file = sys.argv[2]
     if text_arg.find("[", 0, 10) != -1:
         config_name = text_arg.split("]", 1)[0].strip("[")
