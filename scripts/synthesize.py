@@ -88,8 +88,26 @@ def synthesize():
         mono_audio = [a.squeeze() for a in all_audio]
         audio_cat = torch.cat(mono_audio, dim=-1).unsqueeze(0)
         
-        # Save to binary format (.pt) instead of .wav
-        binary_output = output_file.replace('.wav', '.pt')
+        # Create queue folder if it doesn't exist
+        queue_folder = 'queue'
+        os.makedirs(queue_folder, exist_ok=True)
+        
+        # Find next sequence number
+        existing_files = [f for f in os.listdir(queue_folder) if f.startswith('generation_') and f.endswith('.pt')]
+        if existing_files:
+            numbers = []
+            for f in existing_files:
+                try:
+                    num = int(f.replace('generation_', '').replace('.pt', ''))
+                    numbers.append(num)
+                except ValueError:
+                    continue
+            next_num = max(numbers) + 1 if numbers else 1
+        else:
+            next_num = 1
+        
+        # Save to queue folder with sequential naming
+        binary_output = os.path.join(queue_folder, f"generation_{next_num}.pt")
         torch.save({
             'audio': audio_cat.cpu(),
             'sample_rate': 24000
