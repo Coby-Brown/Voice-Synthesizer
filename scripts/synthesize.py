@@ -5,6 +5,7 @@ def synthesize():
     from tortoise.utils.audio import load_audio
     import torchaudio
     import yaml
+    from tortoise.api import TextToSpeech    
 
 
     # Usage: python main.py <text|text_file> <output_file> [config_file]
@@ -86,8 +87,15 @@ def synthesize():
     if all_audio:
         mono_audio = [a.squeeze() for a in all_audio]
         audio_cat = torch.cat(mono_audio, dim=-1).unsqueeze(0)
-        torchaudio.save(output_file, audio_cat.cpu(), 24000)
-        print(f"Synthesized speech saved to {output_file}")
+        
+        # Save to binary format (.pt) instead of .wav
+        binary_output = output_file.replace('.wav', '.pt')
+        torch.save({
+            'audio': audio_cat.cpu(),
+            'sample_rate': 24000
+        }, binary_output)
+        print(f"Synthesized speech saved to binary format: {binary_output}")
+        print(f"Run 'python convert.py {binary_output} {output_file}' to convert to wav")
     else:
         print("No audio was generated.")
 
