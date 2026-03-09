@@ -1,22 +1,20 @@
+import sys
+import os
+import torch
+from tortoise.utils.audio import load_audio
+import torchaudio
+import yaml
+from tortoise.api import TextToSpeech
+
 def synthesize():
-    import sys
-    import os
-    import torch
-    from tortoise.utils.audio import load_audio
-    import torchaudio
-    import yaml
-    from tortoise.api import TextToSpeech    
-
-
-    # Usage: python main.py <text|text_file> <output_file> [config_file]
-    if len(sys.argv) < 3:
-        print("Usage: python main.py <text|text_file> <output_file> [config_file]")
+    # Usage: python main.py <text|text_file> [config_file]
+    if len(sys.argv) < 2:
+        print("Usage: python main.py <text|text_file> [config_file]")
         sys.exit(1)
 
     text_arg = sys.argv[1]
-    output_file = sys.argv[2]
 
-    default_config_name = sys.argv[3] if len(sys.argv) > 3 else "Default"
+    default_config_name = sys.argv[2] if len(sys.argv) > 2 else "Default"
 
     def config_filename(name):
         return name if name.endswith('.yaml') else f"{name}.yaml"
@@ -113,14 +111,14 @@ def synthesize():
             'sample_rate': 24000
         }, binary_output)
         print(f"Synthesized speech saved to binary format: {binary_output}")
-        print(f"Run 'python convert.py {binary_output} {output_file}' to convert to wav")
+        output_file = f"output_{next_num}.wav"
+        print(f"Run 'python scripts/convert.py {binary_output} {output_file}' to convert to wav")
     else:
         print("No audio was generated.")
 
     # Parallel synthesis function
 
 def synthesize_batch(text, voice_samples, preset, randomness, diffusion_temperature):
-    from tortoise.api import TextToSpeech
     print(f"Synthesizing: {text[:60]}{'...' if len(text) > 60 else ''}")
     audio = TextToSpeech().tts_with_preset(
         text,
@@ -131,8 +129,6 @@ def synthesize_batch(text, voice_samples, preset, randomness, diffusion_temperat
     )
     return audio
 
-def main():
-    synthesize()
 
 if __name__ == "__main__":
-    main()
+    synthesize()
