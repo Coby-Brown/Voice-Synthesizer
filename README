@@ -65,6 +65,10 @@ Example uses:
 python scripts/convert.py Hello_world.wav
 python scripts/convert.py queue/generation_1.pt Hello_World.wav
 
+3. Clear Command
+python scripts/clear.py
+
+
 # Example config.yaml:
 preset: fast # preset: Synthesis preset (ultra_fast, fast, standard, high_quality)
 randomness: 0.5 # randomness: Controls voice randomness(Tempurature) (float, e.g., 0.5) - Lower values will produce more consistent results, higher values will produce more varied results
