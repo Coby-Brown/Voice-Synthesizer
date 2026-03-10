@@ -114,7 +114,7 @@ def main():
     if len(sys.argv) < 2:
         print("Usage:")
         print("  python convert.py <output.wav>              - Auto-convert next queue file")
-        print("  python convert.py <input.pt> <output.wav>   - Convert specific file")
+        print("  python convert.py [input.pt] <output.wav>   - Convert specific file")
         sys.exit(1)
     
     if len(sys.argv) == 2:
