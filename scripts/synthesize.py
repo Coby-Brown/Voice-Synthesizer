@@ -32,9 +32,11 @@ def synthesize():
 
     if os.path.isfile(text_arg):
         with open(text_arg, 'r', encoding='utf-8') as f:
-            lines = [line.strip() for line in f if line.strip()]
+            raw_text = f.read()
     else:
-        lines = [text_arg.strip()] if text_arg.strip() else []
+        raw_text = text_arg
+
+    lines = [line.strip() for line in raw_text.splitlines() if line.strip()]
 
     if not lines:
         print("No text lines found to synthesize.")
