@@ -1,20 +1,30 @@
 # Setup Instructions
 Begin by setting up python virtual envirnoment by running the setup script in the VSCode (Or other IDE) terminal (THIS PROGRAM IS NOT MEANT FOR USE OUTSIDE OF AN IDE):
-## NOTE: This will take about 10 GB
+## NOTE: This will take about 8 GB
 bash setup.sh
 
 
 # Quickstart Instructions
+#   GUI Mode (Work In progress, not ready, use Terminal Mode)
 1. Start Virtual Environment:
 source venv311/bin/activate
 
-2. Run the main script with the desired text and output file:
-python main.py <text|text_file> <output_file> [config_file]
+2. Run the main script to open GUI:
+python main.py
 
-3. Output file will be generated as the specified filename (e.g., output.wav)
+#   Terminal Mode
+1. Start Virtual Environment:
+source venv311/bin/activate
 
+2. Run the synthesize script with desired generation text.
+python scripts/synthesize.py "<Your Text Here>" output.wav
 
-# Training Instructions
+3. After synthesis, run the conversion script given by the program.
+
+4. Open and play the generated .wav file.
+
+# Terminal Mode
+#   Training Instructions
 To train the model with your own voice samples, follow these steps:
 
 1. Prepare your voice samples:
@@ -23,7 +33,7 @@ Convert samples to a .wav format if they are not already
 2. Place Samples in Training folder
 
 3. Run the command:
-python main.py "Hello World!" output.wav training.yaml
+python scripts/synthesize.py "Hello World!" training.yaml
 
 4. The model will generate a new voice cache file. Re-run the command to check if the training is to your liking.
 
@@ -32,26 +42,34 @@ python main.py "Hello World!" output.wav training.yaml
 6. Create a new .yaml file for that voice.
 
 
-# Command
-python main.py <text|text_file> <output_file> [config_file]
+#   Commands
+1. Synthesis Command
+python scripts/synthesize.py <text|text_file> [config_file]
 
 - <text|text_file>: Text to synthesize or a file containing text
-- <output_file>: Path to save synthesized audio
 - [config_file]: Optional YAML config file (default: config.yaml)
 
+Example uses:
+python scripts/synthesize.py "Hello World!" Default.yaml
+python scripts/synthesize.py "Hello World!"
+python scripts/synthesize.py "[Default] Hello World!"
+python scripts/synthesize.py hello_world.txt
+
+2. Conversion Command
+python scripts/convert.py [audio_binary] <audio_file> 
+
+- [audio_binary]: Specific Generated Binary file to convert (Otherwise converts next file in the sequence)
+- <audio_file>: Audio file to write converted Binary to
+
+Example uses:
+python scripts/convert.py Hello_world.wav
+python scripts/convert.py queue/generation_1.pt Hello_World.wav
 
 # Example config.yaml:
 preset: fast # preset: Synthesis preset (ultra_fast, fast, standard, high_quality)
 randomness: 0.5 # randomness: Controls voice randomness(Tempurature) (float, e.g., 0.5) - Lower values will produce more consistent results, higher values will produce more varied results
 sample_cache: "basic.pt" # sample_cache: Name of cache file for voice samples (string)
 reference_folder: "voices/Default" # reference_folder: Folder containing reference .wav files or reference cache file (string)
-
-
-# Example commands
-python main.py "Hello World!" output.wav Default.yaml
-python main.py "Hello World!" output.wav
-python main.py "[Default] Hello World!" output.wav
-
 
 # Notes:
 This program was designed for use with a linux Machine using an NVIDIA 1080ti GPU. I have not tested with other hardware.
