@@ -14,7 +14,13 @@ def synthesize():
 
     text_arg = sys.argv[1]
 
-    default_config_name = sys.argv[2] if len(sys.argv) > 2 else "Default"
+    def normalize_config_name(name, fallback="Default"):
+        normalized = (name or "").strip()
+        if normalized.startswith('[') and normalized.endswith(']'):
+            normalized = normalized[1:-1].strip()
+        return normalized or fallback
+
+    default_config_name = normalize_config_name(sys.argv[2] if len(sys.argv) > 2 else "Default")
 
     def config_filename(name):
         return name if name.endswith('.yaml') else f"{name}.yaml"
@@ -25,8 +31,7 @@ def synthesize():
         if clean_line.startswith('[') and ']' in clean_line:
             prefix, remainder = clean_line.split(']', 1)
             maybe_name = prefix.strip('[').strip()
-            if maybe_name:
-                cfg_name = maybe_name
+            cfg_name = normalize_config_name(maybe_name, fallback=default_config_name)
             clean_line = remainder.strip()
         return cfg_name, clean_line
 
@@ -50,12 +55,19 @@ def synthesize():
         if not text:
             continue
 
+        config_name = normalize_config_name(config_name, fallback=default_config_name)
         config_file = config_filename(config_name)
         if os.path.exists(config_file):
             with open(config_file, 'r') as f:
                 config = yaml.safe_load(f) or {}
         else:
-            config = {}
+            fallback_file = config_filename("Default")
+            if config_name != "Default" and os.path.exists(fallback_file):
+                with open(fallback_file, 'r') as f:
+                    config = yaml.safe_load(f) or {}
+                print(f"Config '{config_name}' not found. Falling back to {fallback_file}.")
+            else:
+                config = {}
 
         reference_folder = config.get('reference_folder', 'voices/Default')
         randomness = config.get('randomness', 0.5)
